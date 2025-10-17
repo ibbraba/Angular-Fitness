@@ -1,1 +1,15 @@
-<p>header works!</p>
+<header class="app-header">
+	<nav class="nav">
+		<a routerLink="/">Accueil</a>
+	</nav>
+	<div class="auth-actions">
+		<ng-container *ngIf="!authService.isUserConnected(); else logged">
+			<button class="btn" routerLink="/login">Se connecter</button>
+			<button class="btn" routerLink="/register">S'inscrire</button>
+		</ng-container>
+		<ng-template #logged>
+			<span class="username">{{ authService.user?.username }}</span>
+			<button class="btn" (click)="logout()">Déconnexion</button>
+		</ng-template>
+	</div>
+</header>
