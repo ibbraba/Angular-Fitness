@@ -1,0 +1,44 @@
+Home 
+Authentification / Inscription - Auth Composant - Auth service
+User : Usename - Password - Mail - Nom - Prénom 
+
+
+
+
+ 
+Meusures - Meusure Composant  [Form controls]
+Mesures : Poids - Taille - Age 
+
+
+Exercices - Exercice commposant - Service Programme [Form controls]
+Id - Nom - Groupe - Type 
+
+Repas - Repas Composant [Form controls]
+Id - Label - Proteines - Glucide - Lipides 
+
+
+Recap (passe les données)  - Recap composant / Mesure composant /   Feedback smiley Composant (Input envoi prénom de l'utilisateur) (Output vers Recap) -
+Données 
+Calories Nécessaires / calories mangées 
+IMC 
+Poids idéal 
+
+
+
+
+Tables :
+User 
+	Mesures 
+	Exercices 
+	Repas 
+
+
+Validators :
+	Mot de passe 
+	Email
+
+Pipe : IMC depuis mesures age, poids, taille
+ 	Poids idéal 
+
+Directive : Couleur selon objectif IMC élevé (rouge), faible (bleu clair) ou normal (vert)
+
