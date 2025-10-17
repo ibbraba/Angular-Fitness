@@ -17,7 +17,7 @@ Node 18.19.1
 
 # Tables 
 
-- User : Id - Usename - Password - Mail - Nom - Prénom 
+- User : Id - Usename - Password - Mail - Nom - Prénom - Sexe
 - Mesures : Id - Poids - Taille - Age 
 - Exercices : Id - Nom - Groupe - Type 
 - Repas : Id - Label - Proteines - Glucide - Lipides 
