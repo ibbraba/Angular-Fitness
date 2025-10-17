@@ -1,0 +1,109 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "Username": "fit_john",
+      "Password": "hashed_password_123",
+      "Mail": "john.doe@example.com",
+      "Nom": "Doe",
+      "Prenom": "John",
+      "Sexe": "M",
+      "recaps": [
+        {
+          "id": 1,
+          "mesures": { "Poids": 78, "Taille": 180, "Age": 29 },
+          "exercices": [
+            { "id": 1, "Nom": "Squat", "Groupe": "Jambes", "Type": "Force", "Objectif": "prise de masse" },
+            { "id": 2, "Nom": "Pompes", "Groupe": "Pectoraux", "Type": "Poids du corps", "Objectif": "seche" }
+          ],
+          "repas": [
+            { "id": 1, "Label": "Petit déjeuner", "Proteines": 25, "Glucide": 60, "Lipides": 15 },
+            { "id": 2, "Label": "Déjeuner", "Proteines": 40, "Glucide": 70, "Lipides": 20 }
+          ]
+        },
+        {
+          "id": 2,
+          "mesures": { "Poids": 79, "Taille": 180, "Age": 30 },
+          "exercices": [
+            { "id": 3, "Nom": "Soulevé de terre", "Groupe": "Dos", "Type": "Force", "Objectif": "prise de masse" },
+            { "id": 4, "Nom": "Burpees", "Groupe": "Full Body", "Type": "Cardio", "Objectif": "seche" }
+          ],
+          "repas": [
+            { "id": 3, "Label": "Déjeuner", "Proteines": 45, "Glucide": 75, "Lipides": 22 },
+            { "id": 4, "Label": "Dîner", "Proteines": 35, "Glucide": 50, "Lipides": 18 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "Username": "fit_emma",
+      "Password": "hashed_password_456",
+      "Mail": "emma.smith@example.com",
+      "Nom": "Smith",
+      "Prenom": "Emma",
+      "Sexe": "F",
+      "recaps": [
+        {
+          "id": 3,
+          "mesures": { "Poids": 62, "Taille": 167, "Age": 26 },
+          "exercices": [
+            { "id": 5, "Nom": "Course à pied", "Groupe": "Cardio", "Type": "Endurance", "Objectif": "seche" },
+            { "id": 6, "Nom": "Fentes", "Groupe": "Jambes", "Type": "Force", "Objectif": "prise de masse" }
+          ],
+          "repas": [
+            { "id": 5, "Label": "Petit déjeuner", "Proteines": 20, "Glucide": 55, "Lipides": 10 },
+            { "id": 6, "Label": "Dîner", "Proteines": 35, "Glucide": 40, "Lipides": 18 }
+          ]
+        },
+        {
+          "id": 4,
+          "mesures": { "Poids": 61, "Taille": 167, "Age": 27 },
+          "exercices": [
+            { "id": 7, "Nom": "Planche", "Groupe": "Abdominaux", "Type": "Gainage", "Objectif": "seche" },
+            { "id": 8, "Nom": "Vélo", "Groupe": "Cardio", "Type": "Endurance", "Objectif": "prise de masse" }
+          ],
+          "repas": [
+            { "id": 7, "Label": "Déjeuner", "Proteines": 30, "Glucide": 65, "Lipides": 15 },
+            { "id": 8, "Label": "Collation", "Proteines": 18, "Glucide": 30, "Lipides": 9 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "Username": "fit_alex",
+      "Password": "hashed_password_789",
+      "Mail": "alex.dupont@example.com",
+      "Nom": "Dupont",
+      "Prenom": "Alex",
+      "Sexe": "M",
+      "recaps": [
+        {
+          "id": 5,
+          "mesures": { "Poids": 85, "Taille": 185, "Age": 33 },
+          "exercices": [
+            { "id": 9, "Nom": "Tractions", "Groupe": "Dos", "Type": "Poids du corps", "Objectif": "prise de masse" },
+            { "id": 10, "Nom": "Développé couché", "Groupe": "Pectoraux", "Type": "Force", "Objectif": "prise de masse" }
+          ],
+          "repas": [
+            { "id": 9, "Label": "Déjeuner", "Proteines": 45, "Glucide": 80, "Lipides": 25 },
+            { "id": 10, "Label": "Collation", "Proteines": 20, "Glucide": 25, "Lipides": 10 }
+          ]
+        },
+        {
+          "id": 6,
+          "mesures": { "Poids": 83, "Taille": 185, "Age": 34 },
+          "exercices": [
+            { "id": 11, "Nom": "Corde à sauter", "Groupe": "Cardio", "Type": "Endurance", "Objectif": "seche" },
+            { "id": 12, "Nom": "Rowing", "Groupe": "Dos", "Type": "Force", "Objectif": "prise de masse" }
+          ],
+          "repas": [
+            { "id": 11, "Label": "Petit déjeuner", "Proteines": 28, "Glucide": 55, "Lipides": 12 },
+            { "id": 12, "Label": "Dîner", "Proteines": 40, "Glucide": 65, "Lipides": 22 }
+          ]
+        }
+      ]
+    }
+  ]
+}
