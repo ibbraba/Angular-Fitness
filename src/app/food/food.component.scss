@@ -107,3 +107,24 @@ $glow: rgba(255, 75, 43, 0.5);
   }
 }
 
+.page-container {
+//   background-image: url('https://images.unsplash.com/photo-1555243896-c709bfa0b564?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2070');
+  background-image: url('https://images.unsplash.com/photo-1514995669114-6081e934b693?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative; // pour permettre un overlay si besoin
+}
+
+.page-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3); // assombrit légèrement l'image
+  z-index: 0;
+}
+
+.form-wrapper {
+  position: relative;
+  z-index: 1; // le formulaire reste au-dessus de l'image et de l'overlay
+}

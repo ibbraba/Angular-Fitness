@@ -1,5 +1,5 @@
 // === Variables ===
-$primary: #ff4b2b; // rouge orangé punchy
+$primary: #eb930f; // rouge orangé punchy
 $primary-hover: #ff6a4f;
 $bg: #f6f6f6;
 $text: #222;
@@ -105,4 +105,27 @@ $glow: rgba(255, 75, 43, 0.5);
   &:active {
     transform: scale(0.98);
   }
+}
+
+.page-container {
+  background-image: url('https://images.pexels.com/photos/669584/pexels-photo-669584.jpeg');
+//   background-image: url('https://images.pexels.com/photos/669578/pexels-photo-669578.jpeg');
+//   background-image: url('https://plus.unsplash.com/premium_photo-1672784159099-3d57f2126d43?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative; // pour permettre un overlay si besoin
+}
+
+.page-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3); // assombrit légèrement l'image
+  z-index: 0;
+}
+
+.form-wrapper {
+  position: relative;
+  z-index: 1; // le formulaire reste au-dessus de l'image et de l'overlay
 }
