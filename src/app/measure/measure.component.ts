@@ -18,7 +18,7 @@ export class MeasureComponent {
 
   ngOnInit(): void {
     this.measureForm = this.fb.group({
-      age: new FormControl('', Validators.required),
+      age: new FormControl('', [Validators.required, Validators.min(4)]),
       taille: new FormControl('', [Validators.required, Validators.min(4)]),
       poids: new FormControl('', Validators.required),
     });
