@@ -128,3 +128,9 @@ $glow: rgba(255, 75, 43, 0.5);
   position: relative;
   z-index: 1; // le formulaire reste au-dessus de l'image et de l'overlay
 }
+
+.register_error {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}

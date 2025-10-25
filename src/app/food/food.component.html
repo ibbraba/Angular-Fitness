@@ -5,28 +5,30 @@
       <p>Indiquez les macros pour suivre votre nutrition 🍽️</p>
     </div>
 
-    <form>
+    <form [formGroup]="foodForm" (ngSubmit)="addFood()">
       <div class="form-group">
         <label for="label">Nom du repas</label>
-        <input type="text" id="label" placeholder="Ex: Poulet + riz" required />
+        <input type="text" id="label" placeholder="Ex: Poulet + riz" formControlName="foodname" />
       </div>
 
       <div class="form-group">
         <label for="proteins">Protéines (g)</label>
-        <input type="number" id="proteins" placeholder="Ex: 30" min="0" required />
+        <input type="number" id="proteins" placeholder="Ex: 30" min="0" formControlName="proteins" />
       </div>
 
       <div class="form-group">
         <label for="carbs">Glucides (g)</label>
-        <input type="number" id="carbs" placeholder="Ex: 50" min="0" required />
+        <input type="number" id="carbs" placeholder="Ex: 50" min="0" formControlName="glucides" />
       </div>
 
       <div class="form-group">
         <label for="fats">Lipides (g)</label>
-        <input type="number" id="fats" placeholder="Ex: 10" min="0" required />
+        <input type="number" id="fats" placeholder="Ex: 10" formControlName="lipides" />
       </div>
-
-      <button type="submit" class="submit-btn" routerLink="/exercise">Ajouter le repas</button>
+      <p *ngIf="foodForm.invalid && (foodForm.touched || foodForm.dirty)" class="register_error">
+        {{ getErrorLabel }}
+      </p>
+      <button type="submit" class="submit-btn" [disabled]="foodForm.invalid">Ajouter le repas</button>
     </form>
   </div>
 </div>
