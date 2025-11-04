@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FitnessService } from '../shared/services/fitness.service';
 
 @Component({
   selector: 'app-food',
@@ -13,6 +14,7 @@ export class FoodComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private fitnessService: FitnessService,
     private router: Router
   ) { }
 
@@ -27,12 +29,14 @@ export class FoodComponent implements OnInit {
 
   addFood() {
     if (this.foodForm.invalid) return;
-    // this.authService.addUser({
-    //   username: this.foodForm.value.username,
-    //   password: this.foodForm.value.password
-    // });
+    this.fitnessService.addFood({
+      foodname: this.foodForm.value.foodname,
+      proteins: this.foodForm.value.proteins,
+      glucides: this.foodForm.value.glucides,
+      lipides: this.foodForm.value.lipides
+    });
     console.log('Nourriture ajoutée avec succès !');
-    // this.router.navigate(['/login']);
+    this.router.navigate(['/exercise']);
   }
 
   get getErrorLabel() {

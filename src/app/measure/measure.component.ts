@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FitnessService } from '../shared/services/fitness.service';
 
 @Component({
   selector: 'app-measure',
@@ -13,6 +14,7 @@ export class MeasureComponent {
 
   constructor(
     private fb: FormBuilder,
+    private fitnessService: FitnessService,
     private router: Router
   ) { }
 
@@ -26,12 +28,13 @@ export class MeasureComponent {
 
   addMeasure() {
     if (this.measureForm.invalid) return;
-    // this.authService.addUser({
-    //   username: this.measureForm.value.username,
-    //   password: this.measureForm.value.password
-    // });
+    this.fitnessService.addMeasure({
+      age: this.measureForm.value.age,
+      taille: this.measureForm.value.taille,
+      poids: this.measureForm.value.poids
+    });
     console.log('mesures ajoutée avec succès !');
-    // this.router.navigate(['/login']);
+    this.router.navigate(['/food']);
   }
 
   get getErrorLabel() {
