@@ -1,0 +1,76 @@
+$primary: #eb930f;
+$primary-hover: #ff6a4f;
+$glow: rgba(255, 75, 43, 0.4);
+
+.app-header {
+ 
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 2px solid $primary;
+  box-shadow: 0 0 15px $glow;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  top: 0;
+  z-index: 10;
+
+  .nav {
+    display: flex;
+    gap: 1.5rem;
+
+    a {
+      font-weight: 600;
+      color: $primary;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      transition: 0.2s;
+
+      &:hover,
+      &.active {
+        color: $primary-hover;
+        text-shadow: 0 0 8px $glow;
+      }
+    }
+  }
+
+  .auth-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+
+    .username {
+      font-weight: 700;
+      margin-right: 0.5rem;
+      color: $primary;
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      background: $primary;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+      box-shadow: 0 3px 8px $glow;
+
+      &:hover {
+        background: $primary-hover;
+        transform: scale(1.06);
+        box-shadow: 0 5px 14px $glow;
+      }
+
+      &.logout {
+        background: #d9534f;
+
+        &:hover {
+          background: #c9302c;
+        }
+      }
+    }
+  }
+}

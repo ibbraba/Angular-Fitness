@@ -1,0 +1,136 @@
+// === Variables === 
+$primary: #eb930f;
+$primary-hover: #ff6a4f;
+$text: #222;
+$border: #ddd;
+$glow: rgba(255, 75, 43, 0.4);
+
+// === PAGE ===
+.fitness-home-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  position: relative;
+
+  background: url("https://images.unsplash.com/photo-1599058917212-d750089bc07e")
+    no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 0;
+  }
+
+  .content-box {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    width: 100%;
+    max-width: 550px;
+    padding: 2.2rem;
+    border-radius: 14px;
+    border: 2px solid $primary;
+    box-shadow: 0 0 20px $glow;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    transition: 0.3s;
+
+    &:hover {
+      box-shadow: 0 0 30px $glow;
+    }
+
+    h1 {
+      color: $primary;
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+    }
+
+    p {
+      margin-bottom: 1.2rem;
+      color: #444;
+    }
+
+    // === Buttons ===
+    button {
+      padding: 0.9rem 1.4rem;
+      background: $primary;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1rem;
+      text-transform: uppercase;
+      transition: 0.3s;
+      box-shadow: 0 4px 10px $glow;
+      margin: 0.4rem 0.3rem;
+
+      &:hover {
+        background: $primary-hover;
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px $glow;
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+
+    // === Recap History Section ===
+    .recap-section {
+      margin-top: 1.8rem;
+      text-align: left;
+
+      h2 {
+        color: $primary;
+        font-weight: 700;
+        margin-bottom: 0.7rem;
+      }
+
+      h5 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: $text;
+        margin-bottom: 0.3rem;
+      }
+
+      ul {
+        list-style: none;
+        padding-left: 0;
+
+        > li {
+          background: rgba(255, 255, 255, 0.8);
+          margin-bottom: 0.8rem;
+          padding: 0.7rem 1rem;
+          border-radius: 8px;
+          border: 1px solid $border;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+          transition: 0.2s;
+
+          &:hover {
+            transform: translateX(5px);
+            box-shadow: 0 3px 10px $glow;
+          }
+
+          ul {
+            margin-top: 0.4rem;
+            padding-left: 1rem;
+
+            li {
+              font-size: 0.9rem;
+              color: #444;
+            }
+          }
+        }
+      }
+    }
+  }
+}
