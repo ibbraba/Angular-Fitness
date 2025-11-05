@@ -14,6 +14,55 @@
       "proteins": 33,
       "glucides": 85,
       "lipides": 78
+    },
+    {
+      "id": "7614",
+      "foodname": "Riz",
+      "proteins": 30,
+      "glucides": 12,
+      "lipides": 36
+    },
+    {
+      "id": "da75",
+      "foodname": "Riz",
+      "proteins": 30,
+      "glucides": 12,
+      "lipides": 36
+    },
+    {
+      "id": "ac2a",
+      "foodname": "Riz",
+      "proteins": 30,
+      "glucides": 12,
+      "lipides": 36
+    },
+    {
+      "id": "9cdd",
+      "foodname": "Riz",
+      "proteins": 30,
+      "glucides": 12,
+      "lipides": 36
+    },
+    {
+      "id": "d969",
+      "foodname": "AZZE",
+      "proteins": 30,
+      "glucides": 12,
+      "lipides": 36
+    },
+    {
+      "id": "81d9",
+      "foodname": "Patte",
+      "proteins": 30,
+      "glucides": 12,
+      "lipides": 36
+    },
+    {
+      "id": "d02d",
+      "foodname": "Porc",
+      "proteins": 300,
+      "glucides": 12,
+      "lipides": 36
     }
   ],
   "measures": [
@@ -28,6 +77,13 @@
       "age": 21,
       "taille": 246,
       "poids": 77
+    },
+    {
+      "id": "cb0a",
+      "gender": "Homme",
+      "age": 14,
+      "taille": 175,
+      "poids": 74
     }
   ]
 }

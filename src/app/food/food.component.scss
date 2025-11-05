@@ -134,3 +134,13 @@ $glow: rgba(255, 75, 43, 0.5);
   font-size: 0.85rem;
   margin-top: 0.25rem;
 }
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem; // espace entre les boutons
+
+  .submit-btn {
+    flex: 1;
+  }
+}

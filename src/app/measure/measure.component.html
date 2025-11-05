@@ -7,6 +7,15 @@
 
     <form [formGroup]="measureForm" (ngSubmit)="addMeasure()">
       <div class="form-group">
+        <label for="Gender">Genre</label>
+        <select id="Gender" formControlName="gender">
+          <option value="">-- Sélectionnez un genre --</option>
+          <option value="Homme">Homme</option>
+          <option value="Femme">Femme</option>
+        </select>
+      </div>
+
+      <div class="form-group">
         <label for="age">Âge</label>
         <input type="number" id="age" placeholder="Ex: 25" formControlName="age" />
       </div>

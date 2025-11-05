@@ -28,7 +28,10 @@
       <p *ngIf="foodForm.invalid && (foodForm.touched || foodForm.dirty)" class="register_error">
         {{ getErrorLabel }}
       </p>
-      <button type="submit" class="submit-btn" [disabled]="foodForm.invalid">Ajouter le repas</button>
+      <div class="button-group">
+        <button type="submit" class="submit-btn" [disabled]="foodForm.invalid">Ajouter un repas</button>
+        <button type="button" class="submit-btn next-btn" (click)="goToNextStep()">Suivant</button>
+      </div>
     </form>
   </div>
 </div>
