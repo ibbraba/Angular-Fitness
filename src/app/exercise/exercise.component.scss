@@ -1,5 +1,5 @@
 // === Variables ===
-$primary: #eb930f; // rouge orangé punchy
+$primary: #eb930f;
 $primary-hover: #ff6a4f;
 $bg: #f6f6f6;
 $text: #222;
@@ -114,20 +114,20 @@ $glow: rgba(255, 75, 43, 0.5);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  position: relative; // pour permettre un overlay si besoin
+  position: relative;
 }
 
 .page-container::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3); // assombrit légèrement l'image
+  background: rgba(0, 0, 0, 0.3);
   z-index: 0;
 }
 
 .form-wrapper {
   position: relative;
-  z-index: 1; // le formulaire reste au-dessus de l'image et de l'overlay
+  z-index: 1;
 }
 
 .register_error {
