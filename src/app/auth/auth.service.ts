@@ -60,7 +60,7 @@ export class AuthService {
     return false;
   }
 
-  private getSavedUserInfo(): Observable<User[]> {
+  getSavedUserInfo(): Observable<User[]> {
     return this.http.get<BackendUser[]>('http://localhost:3000/users?id=' + this.getSavedUser()).pipe(
       map(arr => arr.map(b => this.backendToUser(b)))
     );
