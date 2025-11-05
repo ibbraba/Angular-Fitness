@@ -20,6 +20,7 @@ export class MeasureComponent {
 
   ngOnInit(): void {
     this.measureForm = this.fb.group({
+      gender: new FormControl('', [Validators.required]),
       age: new FormControl('', [Validators.required, Validators.min(4)]),
       taille: new FormControl('', [Validators.required, Validators.min(4)]),
       poids: new FormControl('', Validators.required),
@@ -29,6 +30,7 @@ export class MeasureComponent {
   addMeasure() {
     if (this.measureForm.invalid) return;
     this.fitnessService.addMeasure({
+      gender: this.measureForm.value.gender,
       age: this.measureForm.value.age,
       taille: this.measureForm.value.taille,
       poids: this.measureForm.value.poids

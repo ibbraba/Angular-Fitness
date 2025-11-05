@@ -20,7 +20,7 @@ export class FoodComponent implements OnInit {
 
   ngOnInit(): void {
     this.foodForm = this.fb.group({
-      foodname: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      foodname: new FormControl('', Validators.required),
       proteins: new FormControl('', [Validators.required, Validators.min(4)]),
       glucides: new FormControl('', Validators.required),
       lipides: new FormControl('', Validators.required),
@@ -36,6 +36,11 @@ export class FoodComponent implements OnInit {
       lipides: this.foodForm.value.lipides
     });
     console.log('Nourriture ajoutée avec succès !');
+    this.foodForm.reset();
+    this.router.navigate(['/food']);
+  }
+
+  goToNextStep() {
     this.router.navigate(['/exercise']);
   }
 

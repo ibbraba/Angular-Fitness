@@ -16,7 +16,7 @@ export class FitnessService {
     this.http.post('http://localhost:3000/foods', food).subscribe();
   }
 
-  addMeasure(measure: { age: number; taille: number; poids: number }) {
+  addMeasure(measure: {gender: string; age: number; taille: number; poids: number }) {
     this.http.post('http://localhost:3000/measures', measure).subscribe();
   }
 
