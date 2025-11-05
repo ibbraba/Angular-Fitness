@@ -1,0 +1,33 @@
+{
+  "exercises": [
+    {
+      "id": "b970",
+      "exercisename": "sqaut",
+      "exercisegroup": "fsfg",
+      "type": "sdsdv"
+    }
+  ],
+  "foods": [
+    {
+      "id": "0b82",
+      "foodname": "azzererer",
+      "proteins": 33,
+      "glucides": 85,
+      "lipides": 78
+    }
+  ],
+  "measures": [
+    {
+      "id": "468a",
+      "age": 24,
+      "taille": 245,
+      "poids": 789
+    },
+    {
+      "id": "75e2",
+      "age": 21,
+      "taille": 246,
+      "poids": 77
+    }
+  ]
+}
