@@ -19,4 +19,14 @@ export class FitnessService {
   addMeasure(measure: { age: number; taille: number; poids: number }) {
     this.http.post('http://localhost:3000/measures', measure).subscribe();
   }
+
+
+  calculateCalories(proteins: number, glucides: number, lipides: number): number {
+    return (proteins * 4) + (glucides * 4) + (lipides * 9);
+  }
+
+  calculateIMC(weight: number, height: number): number {
+    const heightInMeters = height / 100;
+    return Math.round((weight / (heightInMeters * heightInMeters)) * 10) / 10;
+  }
 }
