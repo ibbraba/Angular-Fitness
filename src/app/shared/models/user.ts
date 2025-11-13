@@ -41,7 +41,7 @@ export interface Repas {
 
 // Normalized client-side model
 export interface User {
-  id: string | number;
+  id: string ;
   username: string;
   password: string;
   Mail?: string;

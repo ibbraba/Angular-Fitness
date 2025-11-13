@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FitnessService } from '../shared/services/fitness.service';
 
 @Component({
@@ -11,11 +11,14 @@ import { FitnessService } from '../shared/services/fitness.service';
 export class ExerciseComponent {
 
   exerciseForm!: FormGroup;
+  userId!: string;
+  recapId!: number;
   
     constructor(
       private fb: FormBuilder,
       private fitnessService: FitnessService,
-      private router: Router
+      private router: Router,
+      private route : ActivatedRoute
     ) { }
   
     ngOnInit(): void {
@@ -24,6 +27,11 @@ export class ExerciseComponent {
         exercisegroup: new FormControl('', [Validators.required, Validators.min(4)]),
         type: new FormControl('', Validators.required),
       });
+
+      this.userId = this.route.snapshot.params['userId'];
+      this.recapId = this.route.snapshot.params['recapId'];
+      console.log("UserId in exercise component :", this.userId);
+      console.log("RecapId in exercise component :", this.recapId);
     }
   
     addExercise() {
@@ -32,7 +40,7 @@ export class ExerciseComponent {
         exercisename: this.exerciseForm.value.exercisename,
         exercisegroup: this.exerciseForm.value.exercisegroup,
         type: this.exerciseForm.value.type
-      });
+      }, this.userId, this.recapId);
       console.log('exercise ajoutée avec succès !');
       // this.router.navigate(['/login']);
     }
@@ -42,6 +50,10 @@ export class ExerciseComponent {
       // if (!!this.exerciseForm.controls?.['password']?.errors?.['minlength']) return `La longueur minimal pour votre mot de passe est ${this.exerciseForm.controls?.['password']?.errors?.['minlength']?.requiredLength}`;
       // if (this.exerciseForm.errors?.['missMatch']) return 'Les mots de passe ne correspondent pas';
       return 'Formulaire invalide';
+    }
+
+    goToNextStep() {
+      this.router.navigate(['/recap', this.userId, this.recapId]);
     }
   
 
