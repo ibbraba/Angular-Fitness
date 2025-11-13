@@ -6,6 +6,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { MeasureComponent } from './measure/measure.component';
 import { FoodComponent } from './food/food.component';
 import { ExerciseComponent } from './exercise/exercise.component';
+import { RecapComponent } from './recap/recap.component';
 
  const routes: Routes = [
       { path: '',
@@ -14,8 +15,9 @@ import { ExerciseComponent } from './exercise/exercise.component';
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'measure', component: MeasureComponent},
-  { path: 'food', component: FoodComponent},
-  { path: 'exercise', component: ExerciseComponent}
+  { path: 'food/:userId/:recapId', component: FoodComponent},
+  { path: 'exercise/:userId/:recapId', component: ExerciseComponent},
+  { path: 'recap/:userId/:recapId', component: RecapComponent}
 ];
 
 
