@@ -6,9 +6,10 @@ import { AuthService } from '../auth/auth.service';
 import { ThisReceiver } from '@angular/compiler';
 
 @Component({
-  selector: 'app-food',
-  templateUrl: './food.component.html',
-  styleUrls: ['./food.component.scss']
+    selector: 'app-food',
+    templateUrl: './food.component.html',
+    standalone: false,
+    styleUrls: ['./food.component.scss']
 })
 export class FoodComponent implements OnInit {
 

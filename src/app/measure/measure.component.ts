@@ -7,6 +7,7 @@ import { AuthService } from '../auth/auth.service';
 @Component({
   selector: 'app-measure',
   templateUrl: './measure.component.html',
+  standalone: false,
   styleUrls: ['./measure.component.scss']
 })
 export class MeasureComponent {
