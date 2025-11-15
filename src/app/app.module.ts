@@ -17,6 +17,7 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { ImcPipe } from './imc.pipe';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { HttpClientModule, provideHttpClient } from '@angular/common/http';
     RegisterComponent,
     HomeComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ImcPipe
   ],
   imports: [
     BrowserModule,

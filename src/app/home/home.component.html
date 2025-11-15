@@ -17,7 +17,7 @@
                 <li>Poids: {{ recap.mesures.Poids }} kg</li>
                 <li>Taille: {{ recap.mesures.Taille }} cm</li>
                 <li>Age: {{ recap.mesures.Age }} ans</li>
-                <li>IMC: {{ calculateIMC(recap.mesures.Poids, recap.mesures.Taille) }}</li>
+                <li>IMC: {{  recap.mesures.Poids | imc:recap.mesures.Taille }}</li>
               </ul>
               <h5> Exercices </h5>
               <ul>
