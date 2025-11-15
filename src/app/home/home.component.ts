@@ -17,6 +17,11 @@ export class HomeComponent implements OnInit {
 
   connectedUser: any = null; // Replace 'any' with your User type
   recapsHistory: any[] = [];
+  showDialog: boolean = false;
+  selectedRecap: any = null;
+
+
+
 ngOnInit(): void {
 
   // Call this to trigger user retrieval if saved
@@ -34,6 +39,7 @@ ngOnInit(): void {
       this.loadRecap();
     });
   }
+
 }
 
 loadRecap() {
@@ -58,5 +64,16 @@ loadRecap() {
 
   calculateIMC(weight: number, height: number): number {
     return this.fitnessService.calculateIMC(weight, height);
+  }
+
+
+  openDetails(recap: any) {
+    this.selectedRecap = recap;
+    this.showDialog = true;
+  }
+
+  closeDetails() {
+    this.showDialog = false;
+    this.selectedRecap = null;
   }
 }

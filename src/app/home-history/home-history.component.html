@@ -1,0 +1,39 @@
+<div class="modal-backdrop" *ngIf="show"></div>
+
+<div class="modal" *ngIf="show">
+  <div class="modal-content">
+
+    <h2>Recap N°{{ recap?.id }}</h2>
+
+    <!-- Mesures -->
+    <h4>Mesures</h4>
+    <ul>
+      <li>Poids: {{ recap?.mesures?.Poids }} kg</li>
+      <li>Taille: {{ recap?.mesures?.Taille }} cm</li>
+      <li>Age: {{ recap?.mesures?.Age }} ans</li>
+      <li>IMC: {{ recap?.mesures?.Poids | imc:recap?.mesures?.Taille }}</li>
+    </ul>
+
+    <!-- Exercices -->
+    <h4>Exercices</h4>
+    <ul>
+      <li *ngFor="let ex of recap?.exercices">
+        {{ ex.Nom }} - {{ ex.Objectif }}
+      </li>
+    </ul>
+
+    <!-- Repas -->
+    <h4>Repas</h4>
+    <ul>
+      <li *ngFor="let repas of recap?.repas">
+        {{ repas.Label }} -
+        {{ repas.calories }} calories
+      </li>
+    </ul>
+
+    <div class="actions">
+      <button class="button-secondary" (click)="close()">Fermer</button>
+    </div>
+
+  </div>
+</div>

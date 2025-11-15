@@ -11,27 +11,10 @@
         <div>
           <ul>
             <li *ngFor="let recap of recapsHistory">
-              <h3>Recap N°{{ recap.id }}</h3>
-              <h5> Mesures </h5>
-              <ul>
-                <li>Poids: {{ recap.mesures.Poids }} kg</li>
-                <li>Taille: {{ recap.mesures.Taille }} cm</li>
-                <li>Age: {{ recap.mesures.Age }} ans</li>
-                <li>IMC: {{ calculateIMC(recap.mesures.Poids, recap.mesures.Taille) }}</li>
-              </ul>
-              <h5> Exercices </h5>
-              <ul>
-                <li *ngFor="let ex of recap.exercices">
-                  {{ ex.Nom }} - {{ ex.Objectif }}
-                </li>
-              </ul>
-
-              <ul> 
-                <h5> Repas </h5>
-                <li *ngFor="let repas of recap.repas">
-                  {{ repas.Label }} - {{ calculateCalories(repas.Proteines, repas.Glucide, repas.Lipides)  }} calories
-                </li>
-              </ul>
+              <h3>Recap N°{{ recap.id }} - {{recap.exercices.length }} exercices - {{recap.repas.length}} repas</h3>
+              <button class="button-secondary" (click)="openDetails(recap)">
+                Voir les détails
+              </button>
             </li>
           </ul>
         </div>
@@ -45,3 +28,7 @@
     </div>
   </div>
 </div>
+
+
+<app-home-history [show]="showDialog" [recap]="selectedRecap" (cancel)="closeDetails()">
+</app-home-history>
