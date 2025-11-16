@@ -18,7 +18,7 @@
     <h4>Exercices</h4>
     <ul>
       <li *ngFor="let ex of recap?.exercices">
-        {{ ex.Nom }} - {{ ex.Objectif }}
+        {{ ex.Nom }} - {{ ex.Groupe }} - {{ ex.Type }}
       </li>
     </ul>
 
@@ -27,7 +27,7 @@
     <ul>
       <li *ngFor="let repas of recap?.repas">
         {{ repas.Label }} -
-        {{ repas.calories }} calories
+        {{ fitnessService.calculateCalories(repas.Proteines, repas.Glucides, repas.Lipides) }} calories
       </li>
     </ul>
 

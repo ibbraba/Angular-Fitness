@@ -6,9 +6,10 @@ import { AuthService } from '../auth/auth.service';
 import { ThisReceiver } from '@angular/compiler';
 
 @Component({
-  selector: 'app-food',
-  templateUrl: './food.component.html',
-  styleUrls: ['./food.component.scss']
+    selector: 'app-food',
+    templateUrl: './food.component.html',
+    standalone: false,
+    styleUrls: ['./food.component.scss']
 })
 export class FoodComponent implements OnInit {
 
@@ -23,7 +24,7 @@ export class FoodComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService
-  ) { 
+  ) {
 
 
   }
@@ -36,24 +37,24 @@ export class FoodComponent implements OnInit {
       lipides: new FormControl('', Validators.required),
     });
 
-    
+
     this.userId = this.authService.getSavedUser();
     this.route.params.subscribe(params => {
       this.recapId =  params['recapId'];
     });
     console.log("UserId in food component :", this.userId);
     console.log("RecapId in food component :", this.recapId);
-    
+
   }
 
   addFood() {
     console.log("UserId", this.userId);
     if (this.foodForm.invalid) return;
     this.fitnessService.addFood({
-      foodname: this.foodForm.value.foodname,
-      proteins: this.foodForm.value.proteins,
-      glucides: this.foodForm.value.glucides,
-      lipides: this.foodForm.value.lipides
+      Label: this.foodForm.value.foodname,
+      Proteines: this.foodForm.value.proteins,
+      Glucides: this.foodForm.value.glucides,
+      Lipides: this.foodForm.value.lipides
     }, this.userId!, this.recapId!);
     console.log('Nourriture ajoutée avec succès !');
     this.foodForm.reset();

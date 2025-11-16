@@ -19,6 +19,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { ImcPipe } from './imc.pipe';
 import { HomeHistoryComponent } from './home-history/home-history.component';
+import { GoalWeightComponent } from './goal-weight/goal-weight.component';
 
 @NgModule({
   declarations: [
@@ -33,12 +34,14 @@ import { HomeHistoryComponent } from './home-history/home-history.component';
     HeaderComponent,
     FooterComponent,
     ImcPipe,
-    HomeHistoryComponent
+    HomeHistoryComponent,
+    GoalWeightComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent]

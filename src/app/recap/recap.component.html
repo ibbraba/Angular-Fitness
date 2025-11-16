@@ -1,1 +1,103 @@
-<p>Votre récapitulatif : </p>
+<div class="recap-container">
+  <div class="recap-wrapper">
+    <div class="header">
+      <h1>📊 Récapitulatif Complet</h1>
+      <p>Analyse de vos données nutritionnelles et fitness</p>
+    </div>
+
+    <!-- Loader -->
+    <div *ngIf="loading" class="loader-section">
+      <div class="spinner"></div>
+      <p>Calcul des données en cours...</p>
+    </div>
+
+    <!-- Contenu Principal -->
+    <div *ngIf="!loading && recap" class="results-container">
+
+      <!-- ===== SECTION MESURES ===== -->
+      <div class="data-section">
+        <h2>📏 Vos Mesures</h2>
+        <div class="data-grid">
+          <div class="data-item">
+            <span class="data-label">Sexe</span>
+            <span class="data-value">
+              {{ recap.mesures.Sexe === 'Homme' ? '👨 Homme' : '👩 Femme' }}
+            </span>
+          </div>
+
+          <div class="data-item">
+            <span class="data-label">Âge</span>
+            <span class="data-value">{{ recap.mesures.Age }} ans</span>
+          </div>
+
+          <div class="data-item">
+            <span class="data-label">Taille</span>
+            <span class="data-value">{{ recap.mesures.Taille }} cm</span>
+          </div>
+
+          <div class="data-item">
+            <span class="data-label">Poids Actuel</span>
+            <span class="data-value">{{ recap.mesures.Poids }} kg</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== ALIMENTS CONSOMMÉS ===== -->
+      <div class="data-section" *ngIf="recap.repas?.length > 0">
+        <h2>🍽️ Aliments Consommés</h2>
+        <div class="food-list">
+
+          <div class="food-item" *ngFor="let food of recap.repas">
+            <div class="food-name">{{ food.foodname }}</div>
+
+            <div class="food-macros">
+              <span class="macro proteins">P: {{ food.proteins }}g</span>
+              <span class="macro glucides">G: {{ food.glucides }}g</span>
+              <span class="macro lipides">L: {{ food.lipides }}g</span>
+            </div>
+
+            <div class="food-calories">
+              {{ (food.proteins * 4 + food.glucides * 4 + food.lipides * 9) | number:'1.0-0' }} cal
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ===== EXERCICES ===== -->
+      <div class="data-section" *ngIf="recap.exercices?.length > 0">
+        <h2>💪 Exercices</h2>
+
+        <div class="exercise-list">
+          <div class="exercise-item" *ngFor="let ex of recap.exercices">
+
+            <div class="exercise-header">
+              <span class="exercise-name">{{ ex.Nom }}</span>
+              <span class="exercise-type" [ngClass]="ex.Type.toLowerCase()">
+                {{ ex.Type }}
+              </span>
+            </div>
+
+            <div class="exercise-info">
+              <span class="exercise-group">Groupe : {{ ex.Groupe }}</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- TODO: Add your computed result cards here -->
+      <!-- (You probably compute result in TS based on recap data) -->
+
+      <div class="action-buttons">
+        <button class="btn btn-secondary" (click)="goBack()">← Retour</button>
+      </div>
+
+    </div>
+
+    <!-- Erreur -->
+    <div *ngIf="!loading && !recap" class="error-section">
+      <p>❌ Erreur lors du chargement du récapitulatif</p>
+    </div>
+  </div>
+</div>

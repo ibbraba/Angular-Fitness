@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +43,7 @@ export class FitnessService {
   });
   }
 
-  addFood(food: { foodname: string; proteins: number; glucides: number; lipides: number }, userId: string, recapId: number) {
+  addFood(food: { Label: string; Proteines: number; Glucides: number; Lipides: number }, userId: string, recapId: number) {
     const url = `http://localhost:3000/users/${userId}`;
 
     // 1️⃣ Get the user first
@@ -107,12 +107,33 @@ export class FitnessService {
         error: (err) => observer.error(err)
       });
     });
+
+    
     });
+    
   }
 
 
   calculateCalories(proteins: number, glucides: number, lipides: number): number {
     return (proteins * 4) + (glucides * 4) + (lipides * 9);
+  }
+
+   getRecap(userId: string, recapId: number): Observable<any> {
+     const url = `http://localhost:3000/users/${userId}`;
+    
+    return this.http.get<any>(url).pipe(
+      map(user => {
+        if (!user){
+          console.error('User not found');
+          return null;
+        } 
+        console.log("User recaps in service :", user.recaps);
+       let recap: any | null = user.recaps?.find((r: any) => r.id == recapId)
+       console.log(recap);
+       
+        return user.recaps?.find((r: any) => r.id == recapId) || null;
+      })
+    );
   }
 
   calculateIMC(weight: number, height: number): number {
