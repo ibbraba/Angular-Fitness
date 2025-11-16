@@ -43,7 +43,7 @@ export interface CalculationResult {
   providedIn: 'root'
 })
 export class RecapCalculationService {
-  
+
   calculateBMR(age: number, weight: number, height: number, gender: 'male' | 'female'): number {
     // Formule de Harris-Benedict
     if (gender === 'male') {
