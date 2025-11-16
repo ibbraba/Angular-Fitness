@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FitnessService } from '../shared/services/fitness.service';
 
 @Component({
   selector: 'app-home-history',
@@ -10,6 +11,8 @@ export class HomeHistoryComponent {
   @Input() recap: any = null;   // ← receive recap object
 
   @Output() cancel = new EventEmitter<void>();
+  
+  constructor(public fitnessService: FitnessService) {}
 
   close() {
     this.cancel.emit();

@@ -2,25 +2,29 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
-import {ExerciseData, FoodData, MeasureData} from "../measure/measure.component";
-import {CalculationResult, RecapCalculationService} from "../shared/services/recap-calculation.service";
+
+import {CalculationResult, MeasureData, RecapCalculationService} from "../shared/services/recap-calculation.service";
+import { FitnessService } from '../shared/services/fitness.service';
 
 @Component({
   selector: 'app-recap',
   standalone: false,
   templateUrl: './recap.component.html',
-  styleUrls: ['./recap.component.scss']
-})
+ })
 export class RecapComponent implements OnInit {
-  @Input() measureData: MeasureData | null = null;
-  @Input() foods: FoodData[] = [];
-  @Input() exercises: ExerciseData[] = [];
+  measureData: MeasureData | null = null;
+  foods: [] = [];
+  exercises: [] = [];
+  recap: any;
 
   result: CalculationResult | null = null;
-  loading: boolean = true;
+  loading: boolean = false;
 
   userId: string | null = null;
   recapId: number | null = null;
+  showResults: boolean = false;
+  exerciseData: [] = [];
+  foodData: [] = [];
 
   Math = Math;
 
@@ -28,22 +32,28 @@ export class RecapComponent implements OnInit {
     private recapCalculationService: RecapCalculationService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private fitnessService: FitnessService
   ) {
     // Récupérer les données passées via navigation state
     const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras.state) {
+   
+   /* if (navigation?.extras.state) {
       this.measureData = navigation.extras.state['measureData'];
       this.foods = navigation.extras.state['foods'] || [];
       this.exercises = navigation.extras.state['exercises'] || [];
     }
+      */
   }
 
   ngOnInit() {
-    this.userId = this.authService.getSavedUser();
-    this.route.params.subscribe(params => {
-      this.recapId = params['recapId'];
-      this.calculate();
+    this.recapId = this.route.snapshot.params['recapId'];
+    this.userId = this.route.snapshot.params['userId'];
+    
+    console.log("UserId in recap component :", this.userId);
+    console.log("RecapId in recap component :", this.recapId);
+     this.fitnessService.getRecap(this.userId!, this.recapId!).subscribe(recap => { 
+      this.recap = recap;
     });
   }
 

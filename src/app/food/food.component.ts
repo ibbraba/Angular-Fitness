@@ -51,10 +51,10 @@ export class FoodComponent implements OnInit {
     console.log("UserId", this.userId);
     if (this.foodForm.invalid) return;
     this.fitnessService.addFood({
-      foodname: this.foodForm.value.foodname,
-      proteins: this.foodForm.value.proteins,
-      glucides: this.foodForm.value.glucides,
-      lipides: this.foodForm.value.lipides
+      Label: this.foodForm.value.foodname,
+      Proteines: this.foodForm.value.proteins,
+      Glucides: this.foodForm.value.glucides,
+      Lipides: this.foodForm.value.lipides
     }, this.userId!, this.recapId!);
     console.log('Nourriture ajoutée avec succès !');
     this.foodForm.reset();
