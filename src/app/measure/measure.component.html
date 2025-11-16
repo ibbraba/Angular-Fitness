@@ -1,1 +1,39 @@
-<p>measure works!</p>
+<div class="page-container">
+  <div class="form-wrapper">
+    <div class="form-header">
+      <h2>Mes données physiques</h2>
+      <p>Entrez vos infos pour suivre vos progrès 🏋️</p>
+    </div>
+
+    <form [formGroup]="measureForm" (ngSubmit)="addMeasure()">
+      <div class="form-group">
+        <label for="Gender">Genre</label>
+        <select id="Gender" formControlName="gender">
+          <option value="">-- Sélectionnez un genre --</option>
+          <option value="Homme">Homme</option>
+          <option value="Femme">Femme</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="age">Âge</label>
+        <input type="number" id="age" placeholder="Ex: 25" formControlName="age" />
+      </div>
+
+      <div class="form-group">
+        <label for="height">Taille (cm)</label>
+        <input type="number" id="height" placeholder="Ex: 175" formControlName="taille" />
+      </div>
+
+      <div class="form-group">
+        <label for="weight">Poids (kg)</label>
+        <input type="number" id="weight" placeholder="Ex: 70" formControlName="poids" />
+      </div>
+
+      <p *ngIf="measureForm.invalid && (measureForm.touched || measureForm.dirty)" class="register_error">
+        {{ getErrorLabel }}
+      </p>
+      <button type="submit" class="submit-btn" [disabled]="measureForm.invalid">Enregistrer mes données</button>
+    </form>
+  </div>
+</div>
