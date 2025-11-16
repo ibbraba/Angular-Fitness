@@ -1,1 +1,241 @@
-<p>Votre récapitulatif : </p>
+<div class="recap-container">
+  <div class="recap-wrapper">
+    <div class="header">
+      <h1>📊 Récapitulatif Complet</h1>
+      <p>Analyse de vos données nutritionnelles et fitness</p>
+    </div>
+
+    <!-- Loader -->
+    <div *ngIf="loading" class="loader-section">
+      <div class="spinner"></div>
+      <p>Calcul des données en cours...</p>
+    </div>
+
+    <!-- Contenu Principal -->
+    <div *ngIf="!loading && showResults && result" class="results-container">
+
+      <!-- ===== SECTION MESURES =====-->
+      <div class="data-section">
+        <h2>📏 Vos Mesures</h2>
+        <div class="data-grid">
+          <div class="data-item">
+            <span class="data-label">Sexe</span>
+            <span class="data-value">{{ measureData?.gender === 'male' ? '👨 Homme' : '👩 Femme' }}</span>
+          </div>
+          <div class="data-item">
+            <span class="data-label">Âge</span>
+            <span class="data-value">{{ measureData?.age }} ans</span>
+          </div>
+          <div class="data-item">
+            <span class="data-label">Taille</span>
+            <span class="data-value">{{ measureData?.taille }} cm</span>
+          </div>
+          <div class="data-item">
+            <span class="data-label">Poids Actuel</span>
+            <span class="data-value">{{ measureData?.poids }} kg</span>
+          </div>
+          <div class="data-item" *ngIf="measureData?.goalWeight">
+            <span class="data-label">Poids Objectif</span>
+            <span class="data-value goal">{{ measureData?.goalWeight }} kg</span>
+          </div>
+          <div class="data-item" *ngIf="measureData?.timelineWeeks">
+            <span class="data-label">Durée Objectif</span>
+            <span class="data-value">{{ measureData?.timelineWeeks }} sem.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== ALIMENTS CONSOMMÉS ===== -->
+      <div class="data-section" *ngIf="foodData.length > 0">
+        <h2>🍽️ Aliments Consommés</h2>
+        <div class="food-list">
+          <div class="food-item" *ngFor="let food of foodData; let i = index">
+            <div class="food-name">{{ food.foodname }}</div>
+            <div class="food-macros">
+              <span class="macro proteins">P: {{ food.proteins }}g</span>
+              <span class="macro glucides">G: {{ food.glucides }}g</span>
+              <span class="macro lipides">L: {{ food.lipides }}g</span>
+            </div>
+            <div class="food-calories">
+              {{ (food.proteins * 4 + food.glucides * 4 + food.lipides * 9) | number: '1.0-0' }} cal
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== EXERCICES ===== -->
+      <div class="data-section" *ngIf="exerciseData.length > 0">
+        <h2>💪 Exercices</h2>
+        <div class="exercise-list">
+          <div class="exercise-item" *ngFor="let exercise of exerciseData; let i = index">
+            <div class="exercise-header">
+              <span class="exercise-name">{{ exercise.exercisename }}</span>
+              <span class="exercise-type" [ngClass]="exercise.type?.toLowerCase()">{{ exercise.type }}</span>
+            </div>
+            <div class="exercise-info">
+              <span class="exercise-group">Groupe: {{ exercise.exercisegroup }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== RÉSULTATS CALCULÉS ===== -->
+      <div class="results-section">
+
+        <!-- Calories Nécessaires vs Consommées -->
+        <div class="result-card calories" [ngClass]="getCalorieStatus()">
+          <div class="card-header">
+            <h3>🔥 Calories Nécessaires vs Consommées</h3>
+          </div>
+          <div class="card-content">
+            <div class="metric">
+              <span class="label">Dépense énergétique totale (TDEE)</span>
+              <span class="value">{{ result.tdee }} cal</span>
+            </div>
+            <div class="metric">
+              <span class="label">Calories consommées</span>
+              <span class="value">{{ result.totalCaloriesConsumed }} cal</span>
+            </div>
+            <div class="metric highlight">
+              <span class="label">{{ getCalorieMessage() }}</span>
+              <span class="value" [ngClass]="getCalorieStatus()">
+                {{ result.tdee - result.totalCaloriesConsumed }} cal
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bilan Calorique Net -->
+        <div class="result-card net-calories" [ngClass]="getNetCalorieStatus()">
+          <div class="card-header">
+            <h3>⚖️ Bilan Calorique Net</h3>
+          </div>
+          <div class="card-content">
+            <div class="metric">
+              <span class="label">Calories consommées</span>
+              <span class="value">{{ result.totalCaloriesConsumed }} cal</span>
+            </div>
+            <div class="metric">
+              <span class="label">Calories brûlées (exercices)</span>
+              <span class="value">{{ result.estimatedCaloriesBurned }} cal</span>
+            </div>
+            <div class="metric highlight">
+              <span class="label">Bilan net</span>
+              <span class="value" [ngClass]="getNetCalorieStatus()">
+                {{ result.netCalories }} cal
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Macronutriments -->
+        <div class="result-card macros">
+          <div class="card-header">
+            <h3>🥗 Macronutriments</h3>
+          </div>
+          <div class="card-content">
+            <div class="macro-container">
+              <div class="macro-item proteins">
+                <div class="macro-icon">🥩</div>
+                <div class="macro-label">Protéines</div>
+                <div class="macro-value">{{ result.totalProteins }}g</div>
+                <div class="macro-calc">{{ (result.totalProteins * 4) | number: '1.0-0' }} cal</div>
+              </div>
+              <div class="macro-item glucides">
+                <div class="macro-icon">🌾</div>
+                <div class="macro-label">Glucides</div>
+                <div class="macro-value">{{ result.totalGlucides }}g</div>
+                <div class="macro-calc">{{ (result.totalGlucides * 4) | number: '1.0-0' }} cal</div>
+              </div>
+              <div class="macro-item lipides">
+                <div class="macro-icon">🧈</div>
+                <div class="macro-label">Lipides</div>
+                <div class="macro-value">{{ result.totalLipides }}g</div>
+                <div class="macro-calc">{{ (result.totalLipides * 9) | number: '1.0-0' }} cal</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- IMC -->
+        <div class="result-card imc" [style.border-left-color]="result.imcColor">
+          <div class="card-header">
+            <h3>📊 Indice de Masse Corporelle (IMC)</h3>
+          </div>
+          <div class="card-content">
+            <div class="imc-display" [style.color]="result.imcColor">
+              {{ result.imc }}
+            </div>
+            <div class="metric">
+              <span class="label">Catégorie</span>
+              <span class="value category" [style.background-color]="result.imcColor">
+                {{ result.imcCategory }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Poids Idéal -->
+        <div class="result-card ideal-weight">
+          <div class="card-header">
+            <h3>🎯 Poids Idéal</h3>
+          </div>
+          <div class="card-content">
+            <div class="metric">
+              <span class="label">Poids actuel</span>
+              <span class="value">{{ measureData?.poids }} kg</span>
+            </div>
+            <div class="metric">
+              <span class="label">Poids idéal recommandé</span>
+              <span class="value goal">{{ result.idealWeight }} kg</span>
+            </div>
+            <div class="metric" *ngIf="measureData?.goalWeight">
+              <span class="label">Poids objectif</span>
+              <span class="value">{{ measureData?.goalWeight }} kg</span>
+            </div>
+            <div class="metric">
+              <span class="label">Différence avec l'idéal</span>
+              <span class="value" [class]="measureData!.poids > result.idealWeight ? 'loss' : 'gain'">
+                {{ Math.abs(measureData!.poids - result.idealWeight) }} kg
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Données Métaboliques -->
+        <div class="result-card info">
+          <div class="card-header">
+            <h3>🧠 Données Métaboliques</h3>
+          </div>
+          <div class="card-content">
+            <div class="metric">
+              <span class="label">BMR (Métabolisme de base)</span>
+              <span class="value">{{ result.bmr }} cal/jour</span>
+            </div>
+            <div class="metric">
+              <span class="label">TDEE (Dépense énergétique totale)</span>
+              <span class="value">{{ result.tdee }} cal/jour</span>
+            </div>
+            <div class="metric" *ngIf="result.deficitToGoal > 0">
+              <span class="label">Déficit calorique pour objectif</span>
+              <span class="value">{{ result.deficitToGoal }} cal/jour</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Boutons d'action -->
+      <div class="action-buttons">
+        <button class="btn btn-secondary" (click)="goBack()">← Retour</button>
+        <button class="btn btn-primary" (click)="saveAndFinish()">✅ Terminer</button>
+      </div>
+
+    </div>
+
+    <!-- Erreur -->
+    <div *ngIf="!loading && !showResults" class="error-section">
+      <p>❌ Erreur lors du chargement des données</p>
+    </div>
+  </div>
+</div>

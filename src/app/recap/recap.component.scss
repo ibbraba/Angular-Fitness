@@ -1,0 +1,268 @@
+/* health-calculator.component.css */
+
+.calculator-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.calculator-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+h1 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 30px;
+  margin: 0;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+h2 {
+  color: #333;
+  font-size: 22px;
+  padding: 20px 30px 10px;
+  margin: 0;
+  border-bottom: 2px solid #667eea;
+}
+
+h3 {
+  color: #333;
+  font-size: 16px;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Form Section */
+.form-section {
+  padding: 30px;
+  background: #f8f9fa;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #667eea;
+  background-color: #f5f7ff;
+}
+
+.form-input:hover {
+  border-color: #667eea;
+}
+
+/* Button */
+.calculate-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 10px;
+}
+
+.calculate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.calculate-btn:active {
+  transform: translateY(0);
+}
+
+/* Results Section */
+.results-section {
+  padding: 30px;
+  background: white;
+}
+
+.result-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-left: 5px solid #667eea;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.result-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.result-card.calories {
+  border-left-color: #2ecc71;
+}
+
+.result-card.calories.deficit {
+  border-left-color: #e74c3c;
+}
+
+.result-card.calories.surplus {
+  border-left-color: #f39c12;
+}
+
+.result-card.imc {
+  border-left-color: #3498db;
+}
+
+.result-card.ideal-weight {
+  border-left-color: #9b59b6;
+}
+
+.result-card.info {
+  border-left-color: #1abc9c;
+}
+
+.card-header {
+  padding: 15px 20px;
+  background: linear-gradient(to right, #f8f9fa, #ffffff);
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.metric:last-child {
+  border-bottom: none;
+}
+
+.metric.highlight {
+  background: #f8f9fa;
+  margin: 10px -20px 0;
+  padding: 12px 20px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.label {
+  color: #666;
+  font-size: 14px;
+}
+
+.value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.value.deficit {
+  color: #e74c3c;
+}
+
+.value.surplus {
+  color: #f39c12;
+}
+
+.value.loss {
+  color: #9b59b6;
+}
+
+.category {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: white !important;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.imc-display {
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+  margin: 20px 0;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .calculator-container {
+    padding: 20px 10px;
+  }
+
+  .calculator-wrapper {
+    border-radius: 8px;
+  }
+
+  h1 {
+    font-size: 24px;
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 18px;
+    padding: 15px 20px 10px;
+  }
+
+  .form-section,
+  .results-section {
+    padding: 20px;
+  }
+
+  .imc-display {
+    font-size: 36px;
+  }
+
+  .metric {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .value {
+    font-size: 18px;
+  }
+}

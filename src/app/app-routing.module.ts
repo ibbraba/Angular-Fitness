@@ -17,7 +17,7 @@ import { RecapComponent } from './recap/recap.component';
   { path: 'measure', component: MeasureComponent},
   { path: 'food/:userId/:recapId', component: FoodComponent},
   { path: 'exercise/:userId/:recapId', component: ExerciseComponent},
-  { path: 'recap/:userId/:recapId', component: RecapComponent}
+  { path: 'recap', component: RecapComponent}
 ];
 
 
@@ -27,6 +27,6 @@ import { RecapComponent } from './recap/recap.component';
 })
 export class AppRoutingModule {
 
- 
+
 
 }
