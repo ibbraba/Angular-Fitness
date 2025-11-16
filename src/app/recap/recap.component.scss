@@ -1,268 +1,742 @@
-/* health-calculator.component.css */
+// === Variables ===
+$primary: #eb930f;
+$primary-hover: #ff6a4f;
+$bg: #f6f6f6;
+$text: #222;
+$border: #ddd;
+$glow: rgba(255, 75, 43, 0.5);
 
-.calculator-container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 40px 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+// Additional colors
+$secondary-text: #555;
+$label-text: #999;
+$success: #4caf50;
+$warning: #ff9800;
+$info: #2196f3;
 
-.calculator-wrapper {
-  max-width: 800px;
-  margin: 0 auto;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-}
-
-h1 {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 30px;
-  margin: 0;
-  text-align: center;
-  font-size: 28px;
-  font-weight: 600;
-}
-
-h2 {
-  color: #333;
-  font-size: 22px;
-  padding: 20px 30px 10px;
-  margin: 0;
-  border-bottom: 2px solid #667eea;
-}
-
-h3 {
-  color: #333;
-  font-size: 16px;
-  margin: 0;
-  font-weight: 600;
-}
-
-/* Form Section */
-.form-section {
-  padding: 30px;
-  background: #f8f9fa;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group:last-child {
-  margin-bottom: 0;
-}
-
-label {
-  display: block;
-  margin-bottom: 8px;
-  color: #333;
-  font-weight: 500;
-  font-size: 14px;
-}
-
-.form-input {
-  width: 100%;
-  padding: 12px;
-  border: 2px solid #e0e0e0;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: border-color 0.3s ease;
-  box-sizing: border-box;
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: #667eea;
-  background-color: #f5f7ff;
-}
-
-.form-input:hover {
-  border-color: #667eea;
-}
-
-/* Button */
-.calculate-btn {
-  width: 100%;
-  padding: 14px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  margin-top: 10px;
-}
-
-.calculate-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-}
-
-.calculate-btn:active {
-  transform: translateY(0);
-}
-
-/* Results Section */
-.results-section {
-  padding: 30px;
-  background: white;
-}
-
-.result-card {
-  background: white;
-  border: 2px solid #e0e0e0;
-  border-left: 5px solid #667eea;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.result-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.result-card.calories {
-  border-left-color: #2ecc71;
-}
-
-.result-card.calories.deficit {
-  border-left-color: #e74c3c;
-}
-
-.result-card.calories.surplus {
-  border-left-color: #f39c12;
-}
-
-.result-card.imc {
-  border-left-color: #3498db;
-}
-
-.result-card.ideal-weight {
-  border-left-color: #9b59b6;
-}
-
-.result-card.info {
-  border-left-color: #1abc9c;
-}
-
-.card-header {
-  padding: 15px 20px;
-  background: linear-gradient(to right, #f8f9fa, #ffffff);
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.card-header h3 {
-  margin: 0;
-  font-size: 15px;
-}
-
-.card-content {
-  padding: 20px;
-}
-
-.metric {
+// === Global Container ===
+.recap-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid #f0f0f0;
+  background: $bg;
+  min-height: 100vh;
+  padding: 2rem;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1514995669114-6081e934b693?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    z-index: -2;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+  }
 }
 
-.metric:last-child {
-  border-bottom: none;
+.recap-wrapper {
+  background: #fff;
+  border: 2px solid $primary;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 800px;
+  box-shadow: 0 0 20px $glow;
+  position: relative;
+  z-index: 1;
+  animation: slideIn 0.5s ease-out;
 }
 
-.metric.highlight {
-  background: #f8f9fa;
-  margin: 10px -20px 0;
-  padding: 12px 20px;
-  border-radius: 4px;
-  font-weight: 600;
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.label {
-  color: #666;
-  font-size: 14px;
-}
-
-.value {
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-}
-
-.value.deficit {
-  color: #e74c3c;
-}
-
-.value.surplus {
-  color: #f39c12;
-}
-
-.value.loss {
-  color: #9b59b6;
-}
-
-.category {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 20px;
-  color: white !important;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.imc-display {
-  font-size: 48px;
-  font-weight: 700;
+// === Header ===
+.header {
   text-align: center;
-  margin: 20px 0;
-  font-family: 'Arial', sans-serif;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .calculator-container {
-    padding: 20px 10px;
-  }
-
-  .calculator-wrapper {
-    border-radius: 8px;
-  }
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid $border;
 
   h1 {
-    font-size: 24px;
-    padding: 20px;
+    color: $primary;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 1.8rem;
+    margin-bottom: 0.25rem;
+  }
+
+  p {
+    color: $secondary-text;
+    font-size: 0.95rem;
+  }
+}
+
+// === Loader ===
+.loader-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 2rem;
+  gap: 1.5rem;
+
+  p {
+    color: $secondary-text;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid $border;
+  border-top-color: $primary;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// === Results Container ===
+.results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// === Data Sections ===
+.data-section {
+  border: 1px solid $border;
+  border-radius: 10px;
+  padding: 1.5rem;
+  background: #fafafa;
+  transition: 0.3s;
+
+  &:hover {
+    box-shadow: 0 0 15px $glow;
+    background: #fff;
   }
 
   h2 {
-    font-size: 18px;
-    padding: 15px 20px 10px;
+    color: $primary;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+  }
+}
+
+// === Data Grid (Mesures) ===
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.data-item {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: 1rem;
+  border: 1px solid $border;
+  border-radius: 8px;
+  text-align: center;
+  transition: 0.2s;
+
+  &:hover {
+    border-color: $primary;
+    box-shadow: 0 2px 8px rgba($primary, 0.2);
+    transform: translateY(-2px);
   }
 
-  .form-section,
-  .results-section {
-    padding: 20px;
+  .data-label {
+    color: $secondary-text;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
   }
 
-  .imc-display {
-    font-size: 36px;
+  .data-value {
+    color: $text;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: $primary;
+  }
+}
+
+// === Food List ===
+.food-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.food-item {
+  background: #fff;
+  border-left: 4px solid $primary;
+  border-radius: 6px;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  transition: 0.2s;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba($primary, 0.15);
+    transform: translateX(4px);
   }
 
-  .metric {
+  .food-name {
+    color: $text;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .food-macros {
+    display: flex;
+    gap: 0.8rem;
+    justify-self: center;
+    flex-wrap: wrap;
+
+    .macro {
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #fff;
+
+      &.proteins {
+        background: #ff6b6b;
+      }
+
+      &.glucides {
+        background: #4ecdc4;
+      }
+
+      &.lipides {
+        background: #ffd93d;
+        color: $text;
+      }
+    }
+  }
+
+  .food-calories {
+    background: $primary;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+}
+
+// === Exercise List ===
+.exercise-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.exercise-item {
+  background: #fff;
+  border: 1px solid $border;
+  border-radius: 8px;
+  padding: 1.2rem;
+  transition: 0.2s;
+
+  &:hover {
+    border-color: $primary;
+    box-shadow: 0 4px 12px rgba($primary, 0.15);
+  }
+
+  .exercise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+
+    .exercise-name {
+      color: $text;
+      font-weight: 700;
+      font-size: 1.05rem;
+      flex: 1;
+    }
+
+    .exercise-type {
+      padding: 0.4rem 0.9rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+
+      &.cardio {
+        background: #ff6b6b;
+        color: #fff;
+      }
+
+      &.force {
+        background: #4ecdc4;
+        color: #fff;
+      }
+
+      &.flexibilite {
+        background: #ffd93d;
+        color: $text;
+      }
+
+      &.equilibre {
+        background: #95e1d3;
+        color: $text;
+      }
+    }
+  }
+
+  .exercise-info {
+    .exercise-group {
+      color: $secondary-text;
+      font-size: 0.9rem;
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      background: #f0f0f0;
+      border-radius: 4px;
+    }
+  }
+}
+
+// === Action Buttons ===
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $border;
+}
+
+.btn {
+  padding: 0.9rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 0.3s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &.btn-primary {
+    background: $primary;
+    color: #fff;
+    box-shadow: 0 4px 10px $glow;
+
+    &:hover {
+      background: $primary-hover;
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px $glow;
+    }
+  }
+
+  &.btn-secondary {
+    background: #e0e0e0;
+    color: $text;
+    border: 1px solid $border;
+
+    &:hover {
+      background: $border;
+      transform: scale(1.05);
+    }
+  }
+}
+
+// === Error Section ===
+// === Nutrition Totals ===
+.nutrition-totals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $border;
+}
+
+.total-item {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: 0.8rem;
+  border-radius: 6px;
+  border-left: 3px solid $primary;
+
+  .total-label {
+    color: $secondary-text;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .total-value {
+    color: $primary;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+}
+
+// === Burn Section ===
+.burn-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $border;
+}
+
+.burn-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%);
+  color: #fff;
+  padding: 1.2rem;
+  border-radius: 8px;
+  font-weight: 700;
+
+  .burn-label {
+    font-size: 1rem;
+  }
+
+  .burn-value {
+    font-size: 1.4rem;
+  }
+}
+
+// === Summary Section ===
+.summary-section {
+  background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+}
+
+// === Calorie Balance ===
+.calorie-balance {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+
+  .balance-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    flex: 1;
+    min-width: 100px;
+
+    .balance-label {
+      font-size: 0.8rem;
+      color: $secondary-text;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .balance-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: $text;
+
+      &.consumed {
+        color: #4ecdc4;
+      }
+
+      &.burned {
+        color: #ff6b6b;
+      }
+    }
+
+    &.result {
+      border-radius: 6px;
+      padding: 0.8rem;
+      background: #f0f0f0;
+
+      &.optimal {
+        background: #e8f5e9;
+        border: 2px solid #4caf50;
+
+        .balance-value {
+          color: #4caf50;
+        }
+      }
+
+      &.deficit {
+        background: #fff3e0;
+        border: 2px solid #ff9800;
+
+        .balance-value {
+          color: #ff9800;
+        }
+      }
+
+      &.surplus {
+        background: #ffe0e0;
+        border: 2px solid #ff6b6b;
+
+        .balance-value {
+          color: #ff6b6b;
+        }
+      }
+    }
+  }
+
+  .balance-divider {
+    font-weight: 700;
+    color: $secondary-text;
+    font-size: 1.2rem;
+    margin: 0 0.5rem;
+  }
+}
+
+.balance-message {
+  text-align: center;
+  color: $secondary-text;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+// === TDEE Comparison ===
+.tdee-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding-top: 1rem;
+
+  .comparison-item {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 6px;
+    border-left: 3px solid $border;
+
+    .comparison-label {
+      color: $secondary-text;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .comparison-value {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: $text;
+    }
+
+    &.optimal {
+      border-left-color: #4caf50;
+
+      .comparison-value {
+        color: #4caf50;
+      }
+    }
+
+    &.deficit {
+      border-left-color: #ff9800;
+
+      .comparison-value {
+        color: #ff9800;
+      }
+    }
+
+    &.surplus {
+      border-left-color: #2196f3;
+
+      .comparison-value {
+        color: #2196f3;
+      }
+    }
+  }
+}
+
+// === Goal Section ===
+.goal-section {
+  background: linear-gradient(135deg, #f0f7ff 0%, #e3f2fd 100%);
+}
+
+.goal-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.goal-item {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 2px solid #2196f3;
+
+  .goal-label {
+    color: $secondary-text;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .goal-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2196f3;
+  }
+}
+
+// === Data Sub ===
+.data-sub {
+  font-size: 0.75rem;
+  color: $secondary-text;
+  margin-top: 0.2rem;
+  text-transform: uppercase;
+}
+
+// === Error Section ===
+.error-section {
+  text-align: center;
+  padding: 3rem 2rem;
+
+  p {
+    color: #d32f2f;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+}
+
+// === Responsive ===
+@media (max-width: 768px) {
+  .recap-wrapper {
+    padding: 1.5rem;
+    max-width: 100%;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .data-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.8rem;
+  }
+
+  .food-item {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+
+    .food-macros {
+      justify-self: flex-start;
+    }
+
+    .food-calories {
+      justify-self: flex-start;
+    }
+  }
+
+  .exercise-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+
+    .exercise-type {
+      align-self: flex-start;
+    }
   }
 
-  .value {
-    font-size: 18px;
+  .action-buttons {
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .recap-container {
+    padding: 1rem;
+  }
+
+  .recap-wrapper {
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .header {
+    margin-bottom: 1.5rem;
+
+    h1 {
+      font-size: 1.3rem;
+    }
+
+    p {
+      font-size: 0.85rem;
+    }
+  }
+
+  .results-container {
+    gap: 1.5rem;
+  }
+
+  .data-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 
@@ -10,11 +9,11 @@ import { FitnessService } from '../shared/services/fitness.service';
   selector: 'app-recap',
   standalone: false,
   templateUrl: './recap.component.html',
- })
+  styleUrls: ['./recap.component.scss']
+
+})
 export class RecapComponent implements OnInit {
   measureData: MeasureData | null = null;
-  foods: [] = [];
-  exercises: [] = [];
   recap: any;
 
   result: CalculationResult | null = null;
@@ -22,9 +21,6 @@ export class RecapComponent implements OnInit {
 
   userId: string | null = null;
   recapId: number | null = null;
-  showResults: boolean = false;
-  exerciseData: [] = [];
-  foodData: [] = [];
 
   Math = Math;
 
@@ -34,43 +30,70 @@ export class RecapComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private fitnessService: FitnessService
-  ) {
-    // Récupérer les données passées via navigation state
-    const navigation = this.router.getCurrentNavigation();
-   
-   /* if (navigation?.extras.state) {
-      this.measureData = navigation.extras.state['measureData'];
-      this.foods = navigation.extras.state['foods'] || [];
-      this.exercises = navigation.extras.state['exercises'] || [];
-    }
-      */
-  }
+  ) {}
 
   ngOnInit() {
     this.recapId = this.route.snapshot.params['recapId'];
     this.userId = this.route.snapshot.params['userId'];
-    
+
     console.log("UserId in recap component :", this.userId);
     console.log("RecapId in recap component :", this.recapId);
-     this.fitnessService.getRecap(this.userId!, this.recapId!).subscribe(recap => { 
+
+    this.loading = true;
+    this.fitnessService.getRecap(this.userId!, this.recapId!).subscribe(recap => {
       this.recap = recap;
+      this.processData();
+      this.loading = false;
     });
   }
 
-  calculate() {
+  processData() {
+    if (!this.recap) return;
+
+    // Convertir les données du backend au format attendu
+    const gender = this.recap.mesures.Sexe === 'Homme' ? 'male' : 'female';
+
+    this.measureData = {
+      gender: gender,
+      age: this.recap.mesures.Age,
+      taille: this.recap.mesures.Taille,
+      poids: this.recap.mesures.Poids,
+      goalWeight: this.recap.mesures.PoidsCible,
+      timelineWeeks: this.recap.mesures.DureeSemaines
+    };
+
+    // Convertir les aliments au format attendu
+    const foodData = this.recap.repas?.map((food: any) => ({
+      foodname: food.foodname,
+      proteins: food.proteins,
+      glucides: food.glucides,
+      lipides: food.lipides
+    })) || [];
+
+    // Convertir les exercices au format attendu
+    const exerciseData = this.recap.exercices?.map((ex: any) => ({
+      exercisename: ex.Nom,
+      exercisegroup: ex.Groupe,
+      type: ex.Type
+    })) || [];
+
+    // Calculer les résultats
+    this.calculate(foodData, exerciseData);
+  }
+
+  calculate(foodData: any[], exerciseData: any[]) {
     if (!this.measureData) {
       console.error('Données de mesure manquantes');
-      this.loading = false;
       return;
     }
 
     this.result = this.recapCalculationService.calculateFull(
       this.measureData,
-      this.foods,
-      this.exercises
+      foodData,
+      exerciseData
     );
 
-    this.loading = false;
+    console.log('Résultats calculés:', this.result);
   }
 
   getCalorieStatus(): string {
@@ -94,6 +117,13 @@ export class RecapComponent implements OnInit {
     if (this.result.netCalories < -500) return 'surplus';
     if (this.result.netCalories > 500) return 'deficit';
     return 'optimal';
+  }
+
+  getNetCalorieMessage(): string {
+    if (!this.result) return '';
+    if (this.result.netCalories < -500) return `Excédent: ${Math.abs(this.result.netCalories)} cal`;
+    if (this.result.netCalories > 500) return `Déficit: ${this.result.netCalories} cal`;
+    return 'Équilibre optimal';
   }
 
   goBack() {

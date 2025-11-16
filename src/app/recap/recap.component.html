@@ -42,11 +42,39 @@
         </div>
       </div>
 
+      <!-- ===== SECTION CALCULS CORPORELS ===== -->
+      <div class="data-section" *ngIf="result">
+        <h2>🧮 Analyse Corporelle</h2>
+        <div class="data-grid">
+          <div class="data-item">
+            <span class="data-label">IMC</span>
+            <span class="data-value" [style.color]="result.imcColor">
+              {{ result.imc }}
+            </span>
+            <span class="data-sub">{{ result.imcCategory }}</span>
+          </div>
+
+          <div class="data-item">
+            <span class="data-label">Poids Idéal</span>
+            <span class="data-value">{{ result.idealWeight }} kg</span>
+          </div>
+
+          <div class="data-item">
+            <span class="data-label">BMR</span>
+            <span class="data-value">{{ result.bmr }} cal/jour</span>
+          </div>
+
+          <div class="data-item">
+            <span class="data-label">TDEE</span>
+            <span class="data-value">{{ result.tdee }} cal/jour</span>
+          </div>
+        </div>
+      </div>
+
       <!-- ===== ALIMENTS CONSOMMÉS ===== -->
       <div class="data-section" *ngIf="recap.repas?.length > 0">
         <h2>🍽️ Aliments Consommés</h2>
         <div class="food-list">
-
           <div class="food-item" *ngFor="let food of recap.repas">
             <div class="food-name">{{ food.foodname }}</div>
 
@@ -60,7 +88,26 @@
               {{ (food.proteins * 4 + food.glucides * 4 + food.lipides * 9) | number:'1.0-0' }} cal
             </div>
           </div>
+        </div>
 
+        <!-- Totaux Nutritionnels -->
+        <div class="nutrition-totals" *ngIf="result">
+          <div class="total-item">
+            <span class="total-label">Calories Totales</span>
+            <span class="total-value">{{ result.totalCaloriesConsumed }} cal</span>
+          </div>
+          <div class="total-item">
+            <span class="total-label">Protéines</span>
+            <span class="total-value">{{ result.totalProteins }}g</span>
+          </div>
+          <div class="total-item">
+            <span class="total-label">Glucides</span>
+            <span class="total-value">{{ result.totalGlucides }}g</span>
+          </div>
+          <div class="total-item">
+            <span class="total-label">Lipides</span>
+            <span class="total-value">{{ result.totalLipides }}g</span>
+          </div>
         </div>
       </div>
 
@@ -84,13 +131,81 @@
 
           </div>
         </div>
+
+        <!-- Calories Brûlées -->
+        <div class="burn-section" *ngIf="result">
+          <div class="burn-card">
+            <span class="burn-label">🔥 Calories Estimées Brûlées</span>
+            <span class="burn-value">{{ result.estimatedCaloriesBurned }} cal</span>
+          </div>
+        </div>
       </div>
 
-      <!-- TODO: Add your computed result cards here -->
-      <!-- (You probably compute result in TS based on recap data) -->
+      <!-- ===== RÉSUMÉ CALORIQUE ===== -->
+      <div class="data-section summary-section" *ngIf="result">
+        <h2>📈 Bilan Énergétique</h2>
 
+        <div class="calorie-balance">
+          <div class="balance-item">
+            <span class="balance-label">Consommé</span>
+            <span class="balance-value consumed">{{ result.totalCaloriesConsumed }} cal</span>
+          </div>
+
+          <div class="balance-divider">−</div>
+
+          <div class="balance-item">
+            <span class="balance-label">Brûlé</span>
+            <span class="balance-value burned">{{ result.estimatedCaloriesBurned }} cal</span>
+          </div>
+
+          <div class="balance-divider">=</div>
+
+          <div class="balance-item result" [ngClass]="getNetCalorieStatus()">
+            <span class="balance-label">Net</span>
+            <span class="balance-value">{{ result.netCalories }} cal</span>
+          </div>
+        </div>
+
+        <p class="balance-message">{{ getNetCalorieMessage() }}</p>
+
+        <!-- Comparaison avec TDEE -->
+        <div class="tdee-comparison">
+          <div class="comparison-item">
+            <span class="comparison-label">TDEE (Dépense quotidienne)</span>
+            <span class="comparison-value">{{ result.tdee }} cal</span>
+          </div>
+          <div class="comparison-item" [ngClass]="getCalorieStatus()">
+            <span class="comparison-label">{{ getCalorieMessage() }}</span>
+            <span class="comparison-value">
+              {{ Math.abs(result.tdee - result.totalCaloriesConsumed) }} cal
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== OBJECTIF DE POIDS ===== -->
+      <div class="data-section goal-section" *ngIf="result && result.deficitToGoal > 0">
+        <h2>🎯 Objectif de Poids</h2>
+        <div class="goal-info">
+          <div class="goal-item">
+            <span class="goal-label">Poids Cible</span>
+            <span class="goal-value">{{ recap.mesures.PoidsCible }} kg</span>
+          </div>
+          <div class="goal-item">
+            <span class="goal-label">Déficit Quotidien Requis</span>
+            <span class="goal-value">{{ result.deficitToGoal }} cal/jour</span>
+          </div>
+          <div class="goal-item">
+            <span class="goal-label">Durée Estimée</span>
+            <span class="goal-value">{{ recap.mesures.DureeSemaines }} semaines</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== BOUTONS D'ACTION ===== -->
       <div class="action-buttons">
         <button class="btn btn-secondary" (click)="goBack()">← Retour</button>
+        <button class="btn btn-primary" (click)="saveAndFinish()">✓ Terminer</button>
       </div>
 
     </div>
