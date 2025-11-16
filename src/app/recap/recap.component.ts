@@ -33,9 +33,9 @@ export class RecapComponent implements OnInit {
     // Récupérer les données passées via navigation state
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state) {
-      this.measureData = navigation.extras.state.measureData;
-      this.foods = navigation.extras.state.foods || [];
-      this.exercises = navigation.extras.state.exercises || [];
+      this.measureData = navigation.extras.state['measureData'];
+      this.foods = navigation.extras.state['foods'] || [];
+      this.exercises = navigation.extras.state['exercises'] || [];
     }
   }
 

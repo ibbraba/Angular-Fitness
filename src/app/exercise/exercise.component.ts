@@ -13,6 +13,9 @@ export class ExerciseComponent {
   exerciseForm!: FormGroup;
   userId!: string;
   recapId!: number;
+  private measureData: any;
+  private foods: any;
+  private exercises: any;
 
     constructor(
       private fb: FormBuilder,
@@ -53,7 +56,7 @@ export class ExerciseComponent {
     }
 
     goToNextStep() {
-      this.router.navigate(['/recap', userId, recapId], {
+      this.router.navigate(['/recap', this.userId, this.recapId], {
         state: {
           measureData: this.measureData,
           foods: this.foods,

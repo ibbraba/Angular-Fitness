@@ -17,7 +17,7 @@ import { RecapComponent } from './recap/recap.component';
   { path: 'measure', component: MeasureComponent},
   { path: 'food/:userId/:recapId', component: FoodComponent},
   { path: 'exercise/:userId/:recapId', component: ExerciseComponent},
-  { path: 'recap', component: RecapComponent}
+  { path: 'recap/:userId/:recapId', component: RecapComponent}
 ];
 
 
